@@ -156,7 +156,7 @@ ${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.
 
     <section id="registro" class="seccion p-12 max-w-lg mx-auto bg-white rounded-2xl shadow-lg border hidden">
       <h2 class="text-3xl font-semibold text-gray-800 mb-6">Registro de Usuario</h2>
-      <form class="flex flex-col gap-5">
+      <form class="flex flex-col gap-5" onsubmit="registrarUsuario(event)">
         <input type="text" placeholder="Nombre completo" class="p-3 border border-gray-300 rounded-lg" required />
         <input type="email" placeholder="Correo electrónico" class="p-3 border border-gray-300 rounded-lg" required />
         <input type="password" placeholder="Contraseña" class="p-3 border border-gray-300 rounded-lg" required />
