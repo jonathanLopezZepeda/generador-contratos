@@ -9,12 +9,6 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
-  document.getElementById('menuToggle').addEventListener('click', () => {
-    const menu = document.getElementById('menu');
-    menu.classList.toggle('hidden');
-    });
-  </script>
-  <script>
     function mostrarSeccion(id) {
       document.querySelectorAll('.seccion').forEach(s => s.style.display = 'none');
       document.getElementById(id).style.display = 'block';
@@ -237,6 +231,12 @@ ${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.
   <script>
     // Mostrar sección de inicio por defecto
     mostrarSeccion('inicio');
+  </script>
+   <script>
+    document.getElementById('menuToggle').addEventListener('click', () => {
+    const menu = document.getElementById('menu');
+    menu.classList.toggle('hidden');
+    });
   </script>
 </body>
 </html>
