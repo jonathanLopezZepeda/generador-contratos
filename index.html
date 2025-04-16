@@ -21,20 +21,24 @@
       });
 
       const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
+      const doc = new jsPDF({ unit: 'mm', format: 'letter', putOnlyUsedFonts: true });
+
+      doc.setFont('Times', 'Roman');
+      doc.setFontSize(14);
 
       let texto = `CONTRATO DE PRESTACIÓN DE SERVICIOS\n\n` +
         `En la ciudad de ${datos['Lugar de firma del contrato']}, a ${datos['Fecha de firma del contrato']}, comparecen por una parte el Sr./Sra. ${datos['Nombre completo del cliente (Contratante)']}, con domicilio en ${datos['Domicilio completo del cliente']} y RFC ${datos['RFC del cliente']}, en adelante EL CONTRATANTE; y por la otra parte el Sr./Sra. ${datos['Nombre completo del proveedor de servicios (Contratista)']}, RFC ${datos['RFC del proveedor de servicios']}, en adelante EL CONTRATISTA.\n\n` +
         `Ambas partes acuerdan celebrar el presente Contrato de Prestación de Servicios bajo los siguientes términos:\n\n` +
-        `1. OBJETO: ${datos['Descripción detallada del servicio contratado']}.\n\n` +
-        `2. HONORARIOS: El CONTRATANTE pagará al CONTRATISTA la cantidad de $${datos['Monto total acordado (MXN)']} MXN.\n\n` +
-        `3. CLÁUSULAS ADICIONALES: ${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.\n\n` +
-        `Leído que fue el presente contrato, ambas partes lo firman por duplicado, quedando un ejemplar en poder de cada una.\n\n` +
+        `PRIMERA. OBJETO DEL CONTRATO\n${datos['Descripción detallada del servicio contratado']}.\n\n` +
+        `SEGUNDA. HONORARIOS\nEl CONTRATANTE pagará al CONTRATISTA la cantidad total de $${datos['Monto total acordado (MXN)']} MXN (pesos mexicanos).\n\n` +
+        `TERCERA. OBLIGACIONES DE LAS PARTES\nEl CONTRATISTA se obliga a cumplir cabalmente con la prestación del servicio, mientras que el CONTRATANTE se compromete a efectuar el pago en tiempo y forma.\n\n` +
+        `CUARTA. CLÁUSULAS ADICIONALES\n${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.\n\n` +
+        `Leído que fue el presente contrato y enteradas las partes de su contenido y alcance legal, lo firman por duplicado en el lugar y fecha arriba indicados.\n\n` +
         `FIRMA DEL CONTRATANTE: __________________________\n\n` +
         `FIRMA DEL CONTRATISTA: __________________________`;
 
-      doc.setFontSize(12);
-      doc.text(texto, 10, 10, { maxWidth: 190 });
+      const lineas = doc.splitTextToSize(texto, 190);
+      doc.text(lineas, 10, 20);
       doc.save('Contrato_Servicios.pdf');
     }
   </script>
