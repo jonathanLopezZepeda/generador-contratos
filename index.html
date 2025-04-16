@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Contratos con IA</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-4 text-center">Generador de Contratos Legales con IA</h1>
+    <p class="mb-6 text-center">Genera contratos personalizados con base en la legislación de los Estados Unidos Mexicanos.</p>
+
+    <form id="contractForm" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium">Nombre del Contrato</label>
+        <input type="text" name="nombreContrato" class="w-full border p-2 rounded" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Tipo de Contrato</label>
+        <select name="tipoContrato" class="w-full border p-2 rounded" required>
+          <option value="">Selecciona</option>
+          <option value="arrendamiento">Arrendamiento</option>
+          <option value="prestacion_servicios">Prestación de Servicios</option>
+          <option value="laboral">Laboral</option>
+          <option value="confidencialidad">Confidencialidad</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Nombre del Contratante</label>
+        <input type="text" name="contratante" class="w-full border p-2 rounded" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Nombre del Contratado</label>
+        <input type="text" name="contratado" class="w-full border p-2 rounded" required>
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Duración del Contrato</label>
+        <input type="text" name="duracion" class="w-full border p-2 rounded" placeholder="Ej. 12 meses">
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Cláusulas Específicas</label>
+        <textarea name="clausulas" class="w-full border p-2 rounded" rows="4" placeholder="Indica cláusulas adicionales si lo deseas..."></textarea>
+      </div>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Generar Contrato</button>
+    </form>
+
+    <div id="resultadoContrato" class="mt-10 bg-white p-6 rounded shadow hidden">
+      <h2 class="text-xl font-semibold mb-4">Contrato Generado</h2>
+      <div id="contenidoContrato" class="whitespace-pre-line"></div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('contractForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const datos = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch('http://localhost:8000/generar-contrato', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(datos)
+        });
+
+        const resultado = await response.json();
+
+        if (resultado.error) {
+          document.getElementById('contenidoContrato').textContent = 'Error: ' + resultado.error;
+        } else {
+          document.getElementById('contenidoContrato').textContent = resultado.contrato;
+        }
+
+        document.getElementById('resultadoContrato').classList.remove('hidden');
+      } catch (error) {
+        document.getElementById('contenidoContrato').textContent = 'Error al conectarse con el servidor: ' + error;
+        document.getElementById('resultadoContrato').classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
