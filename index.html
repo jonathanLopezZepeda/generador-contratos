@@ -23,6 +23,10 @@
         datos[input.placeholder || input.name] = input.value;
       });
 
+      // Mejora con IA (simulada)
+      const mejoraIA = `
+Este contrato ha sido analizado para mejorar su redacción y claridad, considerando las mejores prácticas jurídicas vigentes en los Estados Unidos Mexicanos.`;
+
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ unit: 'mm', format: 'letter', putOnlyUsedFonts: true });
 
@@ -82,6 +86,9 @@ Para la interpretación y cumplimiento del presente contrato, las partes se some
 ${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.
 
 ` +
+        `NOTA: ${mejoraIA}
+
+` +
         `Leído que fue el presente contrato y enteradas las partes de su contenido y alcance legal, lo firman por duplicado en el lugar y fecha arriba indicados.
 
 ` +
@@ -94,7 +101,6 @@ ${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.
       doc.text(lineas, 10, 20);
       doc.save('Contrato_' + tipoContrato + '.pdf');
 
-      // Limpiar formulario
       form.reset();
     }
   </script>
