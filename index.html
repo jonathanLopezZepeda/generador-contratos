@@ -42,15 +42,49 @@
       const tipoContrato = datos['Tipo de contrato'];
       const clausula = clausulasEspecificas[tipoContrato] || tipoContrato;
 
-      let texto = `CONTRATO DE ${tipoContrato.toUpperCase()}\n\n` +
-        `En la ciudad de ${datos['Lugar de firma del contrato']}, a ${datos['Fecha de firma del contrato']}, comparecen por una parte el Sr./Sra. ${datos['Nombre completo del cliente (Contratante)']}, con domicilio en ${datos['Domicilio completo del cliente']} y RFC ${datos['RFC del cliente']}, en adelante EL CONTRATANTE; y por la otra parte el Sr./Sra. ${datos['Nombre completo del proveedor de servicios (Contratista)']}, RFC ${datos['RFC del proveedor de servicios']}, en adelante EL CONTRATISTA.\n\n` +
-        `Ambas partes acuerdan celebrar el presente Contrato de ${tipoContrato} bajo los siguientes términos:\n\n` +
-        `PRIMERA. OBJETO DEL CONTRATO\n${clausula}\n\n` +
-        `SEGUNDA. HONORARIOS\nEl CONTRATANTE pagará al CONTRATISTA la cantidad total de $${datos['Monto total acordado (MXN)']} MXN (pesos mexicanos).\n\n` +
-        `TERCERA. OBLIGACIONES DE LAS PARTES\nEl CONTRATISTA se obliga a cumplir cabalmente con las disposiciones establecidas, mientras que el CONTRATANTE se compromete a cumplir con los pagos y obligaciones convenidas.\n\n` +
-        `CUARTA. CLÁUSULAS ADICIONALES\n${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.\n\n` +
-        `Leído que fue el presente contrato y enteradas las partes de su contenido y alcance legal, lo firman por duplicado en el lugar y fecha arriba indicados.\n\n` +
-        `FIRMA DEL CONTRATANTE: __________________________\n\n` +
+      let texto = `CONTRATO DE ${tipoContrato.toUpperCase()}
+
+` +
+        `En la ciudad de ${datos['Lugar de firma del contrato']}, a ${datos['Fecha de firma del contrato']}, comparecen por una parte el Sr./Sra. ${datos['Nombre completo del cliente (Contratante)']}, con domicilio en ${datos['Domicilio completo del cliente']} y RFC ${datos['RFC del cliente']}, en adelante EL CONTRATANTE; y por la otra parte el Sr./Sra. ${datos['Nombre completo del proveedor de servicios (Contratista)']}, RFC ${datos['RFC del proveedor de servicios']}, en adelante EL CONTRATISTA.
+
+` +
+        `Ambas partes acuerdan celebrar el presente Contrato de ${tipoContrato} bajo los siguientes términos:
+
+` +
+        `PRIMERA. OBJETO DEL CONTRATO
+${clausula}
+
+` +
+        `SEGUNDA. HONORARIOS
+El CONTRATANTE pagará al CONTRATISTA la cantidad total de $${datos['Monto total acordado (MXN)']} MXN (pesos mexicanos).
+
+` +
+        `TERCERA. OBLIGACIONES DE LAS PARTES
+El CONTRATISTA se obliga a cumplir cabalmente con las disposiciones establecidas, mientras que el CONTRATANTE se compromete a cumplir con los pagos y obligaciones convenidas.
+
+` +
+        `CUARTA. DURACIÓN DEL CONTRATO
+Este contrato tendrá una vigencia de ${datos['Duración del contrato']} a partir de la fecha de firma.
+
+` +
+        `QUINTA. PENALIZACIONES
+En caso de incumplimiento de cualquiera de las partes, se aplicará una penalización correspondiente al 10% del valor total del contrato, salvo acuerdo distinto por escrito.
+
+` +
+        `SEXTA. JURISDICCIÓN
+Para la interpretación y cumplimiento del presente contrato, las partes se someten a las leyes y tribunales competentes de ${datos['Jurisdicción del contrato']}, renunciando a cualquier otro fuero que pudiera corresponderles por razón de su domicilio presente o futuro.
+
+` +
+        `SÉPTIMA. CLÁUSULAS ADICIONALES
+${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.
+
+` +
+        `Leído que fue el presente contrato y enteradas las partes de su contenido y alcance legal, lo firman por duplicado en el lugar y fecha arriba indicados.
+
+` +
+        `FIRMA DEL CONTRATANTE: __________________________
+
+` +
         `FIRMA DEL CONTRATISTA: __________________________`;
 
       const lineas = doc.splitTextToSize(texto, 190);
