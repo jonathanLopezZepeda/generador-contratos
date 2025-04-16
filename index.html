@@ -26,7 +26,7 @@
 
       document.getElementById('bienvenida').textContent = `Bienvenido, ${nombre}`;
       document.getElementById('logout').style.display = 'inline';
-      mostrarSeccion('inicio');
+      mostrarSeccion('contrato');
       event.target.reset();
     }
 
@@ -42,7 +42,7 @@
       if (usuario) {
         document.getElementById('bienvenida').textContent = `Bienvenido, ${usuario}`;
         document.getElementById('logout').style.display = 'inline';
-        mostrarSeccion('contrato');
+        mostrarSeccion('inicio');
       } else {
         mostrarSeccion('registro');
       }
