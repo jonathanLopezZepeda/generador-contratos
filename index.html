@@ -5,10 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Consultoría Jurídica Integral</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
     function mostrarSeccion(id) {
       document.querySelectorAll('.seccion').forEach(s => s.style.display = 'none');
       document.getElementById(id).style.display = 'block';
+    }
+
+    async function generarPDF(event) {
+      event.preventDefault();
+      const inputs = event.target.querySelectorAll('input, textarea');
+      const datos = {};
+      inputs.forEach(input => {
+        datos[input.placeholder] = input.value;
+      });
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      let texto = `CONTRATO DE PRESTACIÓN DE SERVICIOS\n\n` +
+        `En la ciudad de ${datos['Lugar de firma del contrato']}, a ${datos['Fecha de firma del contrato']}, comparecen por una parte el Sr./Sra. ${datos['Nombre completo del cliente (Contratante)']}, con domicilio en ${datos['Domicilio completo del cliente']} y RFC ${datos['RFC del cliente']}, en adelante EL CONTRATANTE; y por la otra parte el Sr./Sra. ${datos['Nombre completo del proveedor de servicios (Contratista)']}, RFC ${datos['RFC del proveedor de servicios']}, en adelante EL CONTRATISTA.\n\n` +
+        `Ambas partes acuerdan celebrar el presente Contrato de Prestación de Servicios bajo los siguientes términos:\n\n` +
+        `1. OBJETO: ${datos['Descripción detallada del servicio contratado']}.\n\n` +
+        `2. HONORARIOS: El CONTRATANTE pagará al CONTRATISTA la cantidad de $${datos['Monto total acordado (MXN)']} MXN.\n\n` +
+        `3. CLÁUSULAS ADICIONALES: ${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.\n\n` +
+        `Leído que fue el presente contrato, ambas partes lo firman por duplicado, quedando un ejemplar en poder de cada una.\n\n` +
+        `FIRMA DEL CONTRATANTE: __________________________\n\n` +
+        `FIRMA DEL CONTRATISTA: __________________________`;
+
+      doc.setFontSize(12);
+      doc.text(texto, 10, 10, { maxWidth: 190 });
+      doc.save('Contrato_Servicios.pdf');
     }
   </script>
 </head>
@@ -37,13 +64,21 @@
     </section>
 
     <section id="contrato" class="seccion p-12 max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border hidden">
-      <h2 class="text-3xl font-semibold text-gray-800 mb-6">Formulario para Generación de Contrato</h2>
-      <form class="flex flex-col gap-5">
-        <input type="text" placeholder="Nombre completo del cliente" class="p-3 border border-gray-300 rounded-lg" required />
-        <input type="text" placeholder="Dirección del cliente" class="p-3 border border-gray-300 rounded-lg" required />
-        <input type="text" placeholder="Servicio contratado" class="p-3 border border-gray-300 rounded-lg" required />
+      <h2 class="text-3xl font-semibold text-gray-800 mb-6">Formulario para Generación de Contrato Legal</h2>
+      <form class="flex flex-col gap-5" onsubmit="generarPDF(event)">
+        <input type="text" placeholder="Nombre completo del cliente (Contratante)" class="p-3 border border-gray-300 rounded-lg" required />
+        <input type="text" placeholder="Domicilio completo del cliente" class="p-3 border border-gray-300 rounded-lg" required />
+        <input type="text" placeholder="RFC del cliente" class="p-3 border border-gray-300 rounded-lg" required />
+        <input type="text" placeholder="Nombre completo del proveedor de servicios (Contratista)" class="p-3 border border-gray-300 rounded-lg" required />
+        <input type="text" placeholder="RFC del proveedor de servicios" class="p-3 border border-gray-300 rounded-lg" required />
+        <input type="text" placeholder="Descripción detallada del servicio contratado" class="p-3 border border-gray-300 rounded-lg" required />
+        <input type="number" placeholder="Monto total acordado (MXN)" class="p-3 border border-gray-300 rounded-lg" required />
+        <input type="text" placeholder="Lugar de firma del contrato" class="p-3 border border-gray-300 rounded-lg" required />
+        <input type="date" placeholder="Fecha de firma del contrato" class="p-3 border border-gray-300 rounded-lg" required />
+        <textarea placeholder="Cláusulas adicionales (opcional)" class="p-3 border border-gray-300 rounded-lg"></textarea>
         <button class="w-full bg-blue-700 hover:bg-blue-800 text-white text-lg py-2 rounded">Generar Contrato en PDF</button>
       </form>
+      <p class="text-sm text-gray-600 mt-4">* Este formulario se basa en principios del derecho civil conforme al Código Civil Federal de los Estados Unidos Mexicanos.</p>
     </section>
   </main>
 
