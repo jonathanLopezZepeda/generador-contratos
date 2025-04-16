@@ -1,58 +1,55 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Home, UserPlus, FileText, MessageCircle } from "lucide-react";
-
-const Navbar = () => (
-  <nav className="flex gap-6 px-8 py-4 shadow bg-white border-b border-gray-200 text-gray-800 text-lg font-medium sticky top-0 z-10">
-    <Link to="/" className="flex items-center gap-2 hover:text-blue-700"><Home size={20}/>Inicio</Link>
-    <Link to="/registro" className="flex items-center gap-2 hover:text-blue-700"><UserPlus size={20}/>Registro</Link>
-    <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-blue-700"><MessageCircle size={20}/>WhatsApp</a>
-    <Link to="/contrato" className="flex items-center gap-2 hover:text-blue-700"><FileText size={20}/>Generar contrato</Link>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultoría Jurídica Integral</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script>
+    function mostrarSeccion(id) {
+      document.querySelectorAll('.seccion').forEach(s => s.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+  </script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <nav class="flex gap-6 px-8 py-4 shadow bg-white border-b border-gray-200 text-lg font-medium sticky top-0 z-10">
+    <a href="#" onclick="mostrarSeccion('inicio')" class="hover:text-blue-700">Inicio</a>
+    <a href="#" onclick="mostrarSeccion('registro')" class="hover:text-blue-700">Registro</a>
+    <a href="https://wa.me/1234567890" target="_blank" class="hover:text-blue-700">WhatsApp</a>
+    <a href="#" onclick="mostrarSeccion('contrato')" class="hover:text-blue-700">Generar contrato</a>
   </nav>
-);
 
-const Inicio = () => (
-  <div className="p-12 text-center bg-gray-50 min-h-[80vh]">
-    <h1 className="text-4xl font-bold text-gray-900 mb-6">Bienvenido a Consultoría Jurídica Integral</h1>
-    <p className="text-lg text-gray-700">Especialistas en brindar soluciones legales con excelencia y profesionalismo.</p>
-  </div>
-);
+  <main>
+    <section id="inicio" class="seccion p-12 text-center bg-gray-50 min-h-[80vh]">
+      <h1 class="text-4xl font-bold text-gray-900 mb-6">Bienvenido a Consultoría Jurídica Integral</h1>
+      <p class="text-lg text-gray-700">Especialistas en brindar soluciones legales con excelencia y profesionalismo.</p>
+    </section>
 
-const Registro = () => (
-  <div className="p-12 max-w-lg mx-auto bg-white rounded-2xl shadow-lg border">
-    <h2 className="text-3xl font-semibold text-gray-800 mb-6">Registro de Usuario</h2>
-    <form className="flex flex-col gap-5">
-      <input type="text" placeholder="Nombre completo" className="p-3 border border-gray-300 rounded-lg" required />
-      <input type="email" placeholder="Correo electrónico" className="p-3 border border-gray-300 rounded-lg" required />
-      <input type="password" placeholder="Contraseña" className="p-3 border border-gray-300 rounded-lg" required />
-      <Button className="w-full bg-blue-700 hover:bg-blue-800 text-white text-lg">Registrarse</Button>
-    </form>
-  </div>
-);
+    <section id="registro" class="seccion p-12 max-w-lg mx-auto bg-white rounded-2xl shadow-lg border hidden">
+      <h2 class="text-3xl font-semibold text-gray-800 mb-6">Registro de Usuario</h2>
+      <form class="flex flex-col gap-5">
+        <input type="text" placeholder="Nombre completo" class="p-3 border border-gray-300 rounded-lg" required />
+        <input type="email" placeholder="Correo electrónico" class="p-3 border border-gray-300 rounded-lg" required />
+        <input type="password" placeholder="Contraseña" class="p-3 border border-gray-300 rounded-lg" required />
+        <button class="w-full bg-blue-700 hover:bg-blue-800 text-white text-lg py-2 rounded">Registrarse</button>
+      </form>
+    </section>
 
-const Contrato = () => (
-  <div className="p-12 max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border">
-    <h2 className="text-3xl font-semibold text-gray-800 mb-6">Formulario para Generación de Contrato</h2>
-    <form className="flex flex-col gap-5">
-      <input type="text" placeholder="Nombre completo del cliente" className="p-3 border border-gray-300 rounded-lg" required />
-      <input type="text" placeholder="Dirección del cliente" className="p-3 border border-gray-300 rounded-lg" required />
-      <input type="text" placeholder="Servicio contratado" className="p-3 border border-gray-300 rounded-lg" required />
-      <Button className="w-full bg-blue-700 hover:bg-blue-800 text-white text-lg">Generar Contrato en PDF</Button>
-    </form>
-  </div>
-);
+    <section id="contrato" class="seccion p-12 max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border hidden">
+      <h2 class="text-3xl font-semibold text-gray-800 mb-6">Formulario para Generación de Contrato</h2>
+      <form class="flex flex-col gap-5">
+        <input type="text" placeholder="Nombre completo del cliente" class="p-3 border border-gray-300 rounded-lg" required />
+        <input type="text" placeholder="Dirección del cliente" class="p-3 border border-gray-300 rounded-lg" required />
+        <input type="text" placeholder="Servicio contratado" class="p-3 border border-gray-300 rounded-lg" required />
+        <button class="w-full bg-blue-700 hover:bg-blue-800 text-white text-lg py-2 rounded">Generar Contrato en PDF</button>
+      </form>
+    </section>
+  </main>
 
-const App = () => (
-  <Router>
-    <Navbar />
-    <Routes>
-      <Route path="/" element={<Inicio />} />
-      <Route path="/registro" element={<Registro />} />
-      <Route path="/contrato" element={<Contrato />} />
-    </Routes>
-  </Router>
-);
-
-export default App;
+  <script>
+    // Mostrar sección de inicio por defecto
+    mostrarSeccion('inicio');
+  </script>
+</body>
+</html>
