@@ -26,12 +26,28 @@
       doc.setFont('Times', 'Roman');
       doc.setFontSize(14);
 
-      let texto = `CONTRATO DE PRESTACIÓN DE SERVICIOS\n\n` +
+      let clausulasEspecificas = {
+        "Arrendamiento": "El ARRENDADOR entrega al ARRENDATARIO el uso y goce temporal del inmueble descrito, comprometiéndose este último a pagar la renta convenida y conservar en buen estado el bien arrendado.",
+        "Compraventa": "El VENDEDOR transfiere al COMPRADOR la propiedad del bien objeto del presente contrato, obligándose este último a pagar el precio pactado en los términos establecidos.",
+        "Mutuo": "El MUTUANTE entrega en calidad de préstamo al MUTUARIO la cantidad señalada en este contrato, quien se compromete a devolverla en el plazo y forma convenidos.",
+        "Donación": "EL DONANTE transfiere gratuitamente a EL DONATARIO la propiedad del bien especificado, aceptando este último dicha transmisión conforme a lo dispuesto por la ley.",
+        "Comisión Mercantil": "EL COMISIONISTA se obliga a realizar actos de comercio por cuenta de EL COMITENTE, conforme a las instrucciones previamente acordadas.",
+        "Mandato": "EL MANDATARIO acepta representar legalmente a EL MANDANTE para realizar los actos jurídicos determinados en este contrato.",
+        "Sociedad": "Los socios se obligan a combinar sus recursos y esfuerzos para la realización de un fin común lícito, conforme a las reglas establecidas en este contrato.",
+        "Trabajo": "EL TRABAJADOR se compromete a prestar sus servicios personales subordinados a EL PATRÓN a cambio de una remuneración, en los términos de la Ley Federal del Trabajo.",
+        "Obra a Precio Alzado": "EL CONTRATISTA se obliga a ejecutar una obra determinada, sin que el costo varíe por materiales o tiempo, conforme al proyecto acordado.",
+        "Prestación de Servicios": "EL CONTRATISTA se obliga a realizar de manera independiente los servicios objeto de este contrato, con la debida calidad y profesionalismo."
+      };
+
+      const tipoContrato = datos['Tipo de contrato'];
+      const clausula = clausulasEspecificas[tipoContrato] || tipoContrato;
+
+      let texto = `CONTRATO DE ${tipoContrato.toUpperCase()}\n\n` +
         `En la ciudad de ${datos['Lugar de firma del contrato']}, a ${datos['Fecha de firma del contrato']}, comparecen por una parte el Sr./Sra. ${datos['Nombre completo del cliente (Contratante)']}, con domicilio en ${datos['Domicilio completo del cliente']} y RFC ${datos['RFC del cliente']}, en adelante EL CONTRATANTE; y por la otra parte el Sr./Sra. ${datos['Nombre completo del proveedor de servicios (Contratista)']}, RFC ${datos['RFC del proveedor de servicios']}, en adelante EL CONTRATISTA.\n\n` +
-        `Ambas partes acuerdan celebrar el presente Contrato de ${datos['Tipo de contrato']} bajo los siguientes términos:\n\n` +
-        `PRIMERA. OBJETO DEL CONTRATO\nEl objeto de este contrato es ${datos['Tipo de contrato']}.\n\n` +
+        `Ambas partes acuerdan celebrar el presente Contrato de ${tipoContrato} bajo los siguientes términos:\n\n` +
+        `PRIMERA. OBJETO DEL CONTRATO\n${clausula}\n\n` +
         `SEGUNDA. HONORARIOS\nEl CONTRATANTE pagará al CONTRATISTA la cantidad total de $${datos['Monto total acordado (MXN)']} MXN (pesos mexicanos).\n\n` +
-        `TERCERA. OBLIGACIONES DE LAS PARTES\nEl CONTRATISTA se obliga a cumplir cabalmente con la prestación del servicio, mientras que el CONTRATANTE se compromete a efectuar el pago en tiempo y forma.\n\n` +
+        `TERCERA. OBLIGACIONES DE LAS PARTES\nEl CONTRATISTA se obliga a cumplir cabalmente con las disposiciones establecidas, mientras que el CONTRATANTE se compromete a cumplir con los pagos y obligaciones convenidas.\n\n` +
         `CUARTA. CLÁUSULAS ADICIONALES\n${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.\n\n` +
         `Leído que fue el presente contrato y enteradas las partes de su contenido y alcance legal, lo firman por duplicado en el lugar y fecha arriba indicados.\n\n` +
         `FIRMA DEL CONTRATANTE: __________________________\n\n` +
@@ -39,7 +55,7 @@
 
       const lineas = doc.splitTextToSize(texto, 190);
       doc.text(lineas, 10, 20);
-      doc.save('Contrato_Servicios.pdf');
+      doc.save('Contrato_' + tipoContrato + '.pdf');
     }
   </script>
 </head>
