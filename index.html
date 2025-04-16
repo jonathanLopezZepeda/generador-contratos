@@ -14,6 +14,33 @@
       document.getElementById(id).style.display = 'block';
     }
 
+     function registrarUsuario(event) {
+      event.preventDefault();
+      const nombre = document.getElementById('nombreUsuario').value;
+      localStorage.setItem('usuario', nombre);
+      document.getElementById('bienvenida').textContent = `Bienvenido, ${nombre}`;
+      document.getElementById('logout').style.display = 'inline';
+      mostrarSeccion('inicio');
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem('usuario');
+      document.getElementById('bienvenida').textContent = '';
+      document.getElementById('logout').style.display = 'none';
+      mostrarSeccion('registro');
+    }
+
+    window.onload = () => {
+      const usuario = localStorage.getItem('usuario');
+      if (usuario) {
+        document.getElementById('bienvenida').textContent = `Bienvenido, ${usuario}`;
+        document.getElementById('logout').style.display = 'inline';
+        mostrarSeccion('inicio');
+      } else {
+        mostrarSeccion('registro');
+      }
+    };
+
     async function generarPDF(event) {
       event.preventDefault();
       const form = event.target;
@@ -107,6 +134,13 @@ ${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.
 </head>
 </html>
 <body class="bg-gray-100 text-gray-800">
+  <header class="p-4 bg-white shadow-md flex justify-between items-center">
+    <h1 class="text-xl font-bold">Consultoría Jurídica Integral</h1>
+    <div>
+      <span id="bienvenida" class="mr-4"></span>
+      <button id="logout" onclick="cerrarSesion()" class="bg-red-500 text-white px-3 py-1 rounded hidden">Cerrar sesión</button>
+    </div>
+  </header>
   <nav class="flex gap-6 px-8 py-4 shadow bg-white border-b border-gray-200 text-lg font-medium sticky top-0 z-10">
     <a href="#" onclick="mostrarSeccion('inicio')" class="hover:text-blue-700">Inicio</a>
     <a href="#" onclick="mostrarSeccion('registro')" class="hover:text-blue-700">Registro</a>
