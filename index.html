@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +16,8 @@
 
     async function generarPDF(event) {
       event.preventDefault();
-      const inputs = event.target.querySelectorAll('input, textarea, select');
+      const form = event.target;
+      const inputs = form.querySelectorAll('input, textarea, select');
       const datos = {};
       inputs.forEach(input => {
         datos[input.placeholder || input.name] = input.value;
@@ -90,9 +93,27 @@ ${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.
       const lineas = doc.splitTextToSize(texto, 190);
       doc.text(lineas, 10, 20);
       doc.save('Contrato_' + tipoContrato + '.pdf');
+
+      // Limpiar formulario
+      form.reset();
     }
   </script>
 </head>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Aquí iría el resto del contenido HTML del formulario -->
+  <!-- Añadir los campos al formulario principal -->
+  <!-- Ejemplo: -->
+  <!--
+  <form onsubmit="generarPDF(event)">
+    ...campos anteriores...
+    <input type="text" name="Duración del contrato" placeholder="Duración del contrato">
+    <input type="text" name="Jurisdicción del contrato" placeholder="Jurisdicción del contrato">
+    <textarea name="Cláusulas adicionales (opcional)" placeholder="Cláusulas adicionales (opcional)"></textarea>
+    <button type="submit">Generar contrato</button>
+  </form>
+  -->
+</body>
+</html>
 <body class="bg-gray-100 text-gray-800">
   <nav class="flex gap-6 px-8 py-4 shadow bg-white border-b border-gray-200 text-lg font-medium sticky top-0 z-10">
     <a href="#" onclick="mostrarSeccion('inicio')" class="hover:text-blue-700">Inicio</a>
@@ -142,7 +163,10 @@ ${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.
         <input type="text" placeholder="Lugar de firma del contrato" class="p-3 border border-gray-300 rounded-lg" required />
         <input type="date" placeholder="Fecha de firma del contrato" class="p-3 border border-gray-300 rounded-lg" required />
         <textarea placeholder="Cláusulas adicionales (opcional)" class="p-3 border border-gray-300 rounded-lg"></textarea>
-        <button class="w-full bg-blue-700 hover:bg-blue-800 text-white text-lg py-2 rounded">Generar Contrato en PDF</button>
+        <input type="text" name="Duración del contrato" placeholder="Duración del contrato">
+        <input type="text" name="Jurisdicción del contrato" placeholder="Jurisdicción del contrato">
+        <textarea name="Cláusulas adicionales (opcional)" placeholder="Cláusulas adicionales (opcional)"></textarea>
+        <button type="submit">Generar contrato</button>
       </form>
       <p class="text-sm text-gray-600 mt-4">* Este formulario se basa en principios del derecho civil conforme al Código Civil Federal de los Estados Unidos Mexicanos.</p>
     </section>
