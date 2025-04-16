@@ -140,19 +140,19 @@ ${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.
   </script>
 </head>
 <body class="bg-gray-100 text-gray-800">
-  <header class="p-4 bg-white shadow-md flex justify-between items-center">
-    <h1 class="text-xl font-bold">Consultoría Jurídica Integral</h1>
-    <div>
-      <span id="bienvenida" class="mr-4"></span>
-      <button id="logout" onclick="cerrarSesion()" class="bg-red-500 text-white px-3 py-1 rounded hidden">Cerrar sesión</button>
-    </div>
-  </header>
-  <nav class="flex gap-6 px-8 py-4 shadow bg-white border-b border-gray-200 text-lg font-medium sticky top-0 z-10">
-    <a href="#" onclick="mostrarSeccion('inicio')" class="hover:text-blue-700">Inicio</a>
-    <a href="#" onclick="mostrarSeccion('registro')" class="hover:text-blue-700">Registro</a>
-    <a href="https://wa.me/1234567890" target="_blank" class="hover:text-blue-700">WhatsApp</a>
-    <a href="#" onclick="mostrarSeccion('contrato')" class="hover:text-blue-700">Generar contrato</a>
-  </nav>
+  <header class="p-4 bg-white shadow-md flex justify-between items-center border-b border-green-200">
+  <h1 class="text-xl font-bold text-blue-900">Consultoría Jurídica Integral</h1>
+  <div>
+    <span id="bienvenida" class="mr-4 text-green-700 font-medium"></span>
+    <button id="logout" onclick="cerrarSesion()" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded hidden">Cerrar sesión</button>
+  </div>
+</header>
+ <nav class="flex gap-6 px-8 py-4 shadow bg-white border-b border-gray-200 text-lg font-medium sticky top-0 z-10 text-blue-800">
+  <a href="#" onclick="mostrarSeccion('inicio')" class="hover:text-green-600">Inicio</a>
+  <a href="#" onclick="mostrarSeccion('registro')" class="hover:text-green-600">Registro</a>
+  <a href="https://wa.me/1234567890" target="_blank" class="hover:text-green-600">WhatsApp</a>
+  <a href="#" onclick="mostrarSeccion('contrato')" class="hover:text-green-600">Generar contrato</a>
+</nav>
 
   <main>
     <section id="inicio" class="seccion p-12 text-center bg-gray-50 min-h-[80vh]">
@@ -160,7 +160,7 @@ ${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.
       <p class="text-lg text-gray-700">Especialistas en brindar soluciones legales con excelencia y profesionalismo.</p>
     </section>
 
-  <section id="registro" class="seccion p-6 bg-white shadow-md rounded-md w-full max-w-md mx-auto mt-8">
+  <section id="registro" class="seccion p-6 bg-white shadow-md rounded-xl w-full max-w-md mx-auto mt-8 border border-green-100">
     <h2 class="text-2xl font-semibold mb-4">Registro de Usuario</h2>
     <form onsubmit="registrarUsuario(event)" class="space-y-4">
       <div>
@@ -178,15 +178,14 @@ ${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.
         <input type="password" id="contrasenaUsuario" placeholder="Contraseña"
                class="w-full p-2 border rounded" required>
       </div>
-      <button type="submit"
-              class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      <button type="submit" class="bg-blue-800 text-white px-4 py-2 rounded hover:bg-green-700">
         Registrarse
       </button>
     </form>
   </section>
 
-    <section id="contrato" class="seccion p-12 max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border hidden">
-      <h2 class="text-3xl font-semibold text-gray-800 mb-6">Formulario para Generación de Contrato Legal</h2>
+    <section id="contrato" class="seccion p-12 max-w-3xl mx-auto bg-white rounded-2xl shadow-lg border border-blue-100 hidden">
+     <h2 class="text-3xl font-semibold text-blue-900 mb-6">Formulario para Generación de Contrato Legal</h2>
       <form class="flex flex-col gap-5" onsubmit="generarPDF(event)">
         <input type="text" placeholder="Nombre completo del cliente (Contratante)" class="p-3 border border-gray-300 rounded-lg" required />
         <input type="text" placeholder="Domicilio completo del cliente" class="p-3 border border-gray-300 rounded-lg" required />
@@ -212,7 +211,7 @@ ${datos['Cláusulas adicionales (opcional)'] || 'Ninguna'}.
         <textarea placeholder="Cláusulas adicionales (opcional)" class="p-3 border border-gray-300 rounded-lg"></textarea>
         <input type="text" name="Duración del contrato" placeholder="Duración del contrato" class="p-3 border border-gray-300 rounded-lg">
         <input type="text" name="Jurisdicción del contrato" placeholder="Jurisdicción del contrato" class="p-3 border border-gray-300 rounded-lg">    
-        <button class="w-full bg-blue-700 hover:bg-blue-800 text-white text-lg py-2 rounded">Generar Contrato en PDF</button>
+        <button class="w-full bg-green-700 hover:bg-blue-800 text-white text-lg py-2 rounded transition duration-300">Generar Contrato en PDF</button>
       </form>
       <p class="text-sm text-gray-600 mt-4">* Este formulario se basa en principios del derecho civil conforme al Código Civil Federal de los Estados Unidos Mexicanos.</p>
     </section>
