@@ -21,6 +21,7 @@
       document.getElementById('bienvenida').textContent = `Bienvenido, ${nombre}`;
       document.getElementById('logout').style.display = 'inline';
       mostrarSeccion('inicio');
+      event.target.reset();
     }
 
     function cerrarSesion() {
